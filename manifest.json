@@ -1,0 +1,9 @@
+{
+  "id": "ics-obsidian",
+  "name": "ICS",
+  "version": "0.1.0",
+  "minAppVersion": "1.6.0",
+  "description": "Run the ics CLI from your vault: status, commit, log, diff.",
+  "author": "Stratum-ICS",
+  "isDesktopOnly": true
+}
