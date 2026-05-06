@@ -194,14 +194,14 @@ export default defineConfig({
 
 ```typescript
 export type CommitTemplateVars = {
-  actor: string;
+  writer: string;
   paper_id: string;
   phase: string;
   summary: string;
 };
 
 const DEFAULT_PATTERN =
-  "[{actor}][research][{paper_id}][{phase}] {summary}";
+  "[{writer}][research][{paper_id}][{phase}] {summary}";
 
 /** Replace `{key}` placeholders; unknown keys left unchanged. */
 export function applyCommitTemplate(
@@ -228,7 +228,7 @@ import { applyCommitTemplate, defaultCommitPattern } from "../src/commitTemplate
 describe("applyCommitTemplate", () => {
   it("fills all slots", () => {
     const line = applyCommitTemplate(defaultCommitPattern(), {
-      actor: "human",
+      writer: "human",
       paper_id: "s41534-021-00368-4",
       phase: "eli5",
       summary: "§1 intro",
@@ -239,8 +239,8 @@ describe("applyCommitTemplate", () => {
   });
 
   it("preserves unknown placeholders", () => {
-    const line = applyCommitTemplate("[{actor}] {unknown}", {
-      actor: "claude",
+    const line = applyCommitTemplate("[{writer}] {unknown}", {
+      writer: "claude",
       paper_id: "p",
       phase: "gaps",
       summary: "x",
@@ -272,11 +272,11 @@ git commit -m "feat: add commit message template helper with tests"
 export interface IcsSettings {
   icsBinaryPath: string;
   stratumBaseUrl: string;
-  /** Default actor: human | claude | cursor | ics-bot */
-  commitDefaultActor: string;
+  /** Default writer: human | claude | cursor | ics-bot */
+  commitDefaultWriter: string;
   commitDefaultPaperId: string;
   commitDefaultPhase: string;
-  /** Pattern with {actor}, {paper_id}, {phase}, {summary} */
+  /** Pattern with {writer}, {paper_id}, {phase}, {summary} */
   commitMessagePattern: string;
   /** When non-empty: pass to CLI if supported (Task 1), else filter log lines containing this substring */
   logFilterPathSubstring: string;
@@ -285,10 +285,10 @@ export interface IcsSettings {
 export const DEFAULT_SETTINGS: IcsSettings = {
   icsBinaryPath: "ics",
   stratumBaseUrl: "",
-  commitDefaultActor: "human",
+  commitDefaultWriter: "human",
   commitDefaultPaperId: "",
   commitDefaultPhase: "inbox",
-  commitMessagePattern: "[{actor}][research][{paper_id}][{phase}] {summary}",
+  commitMessagePattern: "[{writer}][research][{paper_id}][{phase}] {summary}",
   logFilterPathSubstring: "",
 };
 ```
@@ -310,7 +310,7 @@ git commit -m "feat: add settings for commit template and log filter"
 - [ ] **Step 1:** Import `applyCommitTemplate`, `defaultCommitPattern` from `./commitTemplate`.
 
 - [ ] **Step 2:** Replace `CommitModal` with fields:
-  - `Dropdown` or `<select>` for **actor** (`human`, `claude`, `cursor`, `ics-bot`)
+  - `Dropdown` or `<select>` for **writer** (`human`, `claude`, `cursor`, `ics-bot`)
   - Text inputs or dropdown for **phase** (`inbox`, `eli5`, `gaps`, `peer`, `synthesis`) — free text allowed if user edits pattern
   - Text inputs for **paper_id** (prefill from `plugin.settings.commitDefaultPaperId`)
   - Textarea for **summary**
@@ -319,7 +319,7 @@ git commit -m "feat: add settings for commit template and log filter"
 
 - [ ] **Step 3:** `promptCommit()` opens modal with prefilled values from settings; on success run `runIcs(["commit", "-m", message])`.
 
-- [ ] **Step 4:** In `IcsSettingTab.display()`, add settings rows for each new `IcsSettings` field (pattern, defaults, log filter substring). Use `Setting.setDesc` to document the `[actor][research][paper][phase]` convention.
+- [ ] **Step 4:** In `IcsSettingTab.display()`, add settings rows for each new `IcsSettings` field (pattern, defaults, log filter substring). Use `Setting.setDesc` to document the `[writer][research][paper][phase]` convention.
 
 - [ ] **Step 5:** Run `npm run build` — expect exit **0**.
 

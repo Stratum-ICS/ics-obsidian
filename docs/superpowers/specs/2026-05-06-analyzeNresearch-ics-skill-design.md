@@ -8,7 +8,7 @@
 
 ## 1. Problem
 
-Research teams need a **repeatable reading path** (ELI5, segment-level notes, structured gap analysis, peer review) captured as **Obsidian markdown** with **ICS history** that stays human-readable across many commits and actors. Newcomers should onboard from **hub + instructions** without spoiling the file tree or commit conventions.
+Research teams need a **repeatable reading path** (ELI5, segment-level notes, structured gap analysis, peer review) captured as **Obsidian markdown** with **ICS history** that stays human-readable across many commits and writers. Newcomers should onboard from **hub + instructions** without spoiling the file tree or commit conventions.
 
 ---
 
@@ -48,11 +48,11 @@ Research teams need a **repeatable reading path** (ELI5, segment-level notes, st
 - `paper_id` — stable id (e.g. `s41534-021-00368-4`).
 - `pdf_rel_path` — vault-relative path to the PDF.
 - `kind` / `phase` — e.g. `inbox`, `eli5`, `gaps`, `peer`, `synthesis`.
-- Optional: `paper_root`, `actor` (note author; may mirror commit actor).
+- Optional: `paper_root`, `writer` (note author; may mirror commit writer).
 
 ### 5.2 Paths
 
-- **`Research/inbox/YYYY-MM-DD-<slug>.md`** — fast capture; same `paper_id` on every file.
+- **`Research/inbox/YYYY-MM-DD-SLUG.md`** — fast capture; same `paper_id` on every file.
 - **`Research/papers/<paper_id>/hub.md`** — newcomer entry: links, phase checklist, PDF link.
 - **`Research/papers/<paper_id>/instruction.md`** — **human-facing contract**: note shapes, commit template grammar, tree rules, examples (see `ics-agents/templates/instruction.md`).
 - Optional deeper notes under `Research/papers/<paper_id>/` (e.g. `eli5/`, `gaps/`) or via `paper_root` in frontmatter.
@@ -74,12 +74,12 @@ Research teams need a **repeatable reading path** (ELI5, segment-level notes, st
 Single-line (preferred for tooling and notices):
 
 ```text
-[<actor>][research][<paper_id>][<phase>] <summary>
+[WRITER][research][PAPER_ID][PHASE] SUMMARY
 ```
 
-- `actor ∈ {human, claude, cursor, ics-bot}` — extend only by team agreement; document in `instruction.md`.
+- `writer ∈ {human, claude, cursor, ics-bot}` — extend only by team agreement; document in `instruction.md`.
 - `phase` aligns with workflow (`inbox`, `eli5`, `gaps`, `peer`, `synthesis`, …).
-- Automated commits **must** use the actor matching the runtime (`claude` vs `ics-bot` for non-interactive automation).
+- Automated commits **must** use the writer matching the runtime (`claude` vs `ics-bot` for non-interactive automation).
 
 Example:
 
@@ -93,8 +93,8 @@ Example:
 
 ### 7.1 Commit template (settings + modal)
 
-- Settings: default `actor`, optional default `paper_id`, template pattern with `{actor}`, `{paper_id}`, `{phase}`, `{summary}`.
-- **Commit modal:** Prefill template; dropdowns or presets for `actor` and `phase`; user edits `summary`.
+- Settings: default `writer`, optional default `paper_id`, template pattern with `{writer}`, `{paper_id}`, `{phase}`, `{summary}`.
+- **Commit modal:** Prefill template; dropdowns or presets for `writer` and `phase`; user edits `summary`.
 - Still invokes `ics commit -m "..."` (current spawn model unchanged).
 
 ### 7.2 Log filter
@@ -116,7 +116,7 @@ Example:
 4. **Gaps:** Four lenses + written answers in dedicated notes.
 5. **Peers:** At least one subagent round challenging assumptions and synthesis.
 6. **Synthesis:** Single note linked from hub.
-7. **ICS:** Commit after each stable unit with correct `[actor]` prefix.
+7. **ICS:** Commit after each stable unit with correct `[writer]` prefix.
 
 Subagents receive: vault root path, `paper_id`, paths to `hub.md` and `instruction.md`.
 

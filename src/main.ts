@@ -17,7 +17,7 @@ import { ICS_OUTPUT_VIEW_TYPE, IcsOutputView } from "./views/IcsOutputView";
 /** Design §7 / feature spec §4.1: non-zero exit notices include trimmed combined output */
 const NOTICE_OUTPUT_MAX = 2048;
 
-const ACTOR_OPTIONS = ["human", "claude", "cursor", "ics-bot"] as const;
+const WRITER_OPTIONS = ["human", "claude", "cursor", "ics-bot"] as const;
 
 function truncateForNotice(text: string, max: number): string {
   const t = text.replace(/\r\n/g, "\n").trim();
@@ -55,7 +55,7 @@ class ResearchCommitModal extends Modal {
   private paperIdInput!: HTMLInputElement;
   private summaryInput!: HTMLTextAreaElement;
   private previewInput!: HTMLTextAreaElement;
-  private actorValue: string;
+  private writerValue: string;
   private finished = false;
   private result: string | null = null;
 
@@ -65,7 +65,7 @@ class ResearchCommitModal extends Modal {
     private readonly onDone: (message: string | null) => void
   ) {
     super(app);
-    this.actorValue = plugin.settings.commitDefaultActor || "human";
+    this.writerValue = plugin.settings.commitDefaultWriter || "human";
   }
 
   private pattern(): string {
@@ -76,7 +76,7 @@ class ResearchCommitModal extends Modal {
   private refreshPreview(): void {
     const summary = this.summaryInput?.value ?? "";
     const line = applyCommitTemplate(this.pattern(), {
-      actor: this.actorValue,
+      writer: this.writerValue,
       paper_id: this.paperIdInput?.value ?? "",
       phase: this.phaseInput?.value ?? "",
       summary,
@@ -90,19 +90,19 @@ class ResearchCommitModal extends Modal {
     const { contentEl } = this;
     contentEl.createEl("h2", { text: "ICS commit" });
 
-    new Setting(contentEl).setName("Actor").addDropdown((dd) => {
-      for (const a of ACTOR_OPTIONS) {
+    new Setting(contentEl).setName("Writer").addDropdown((dd) => {
+      for (const a of WRITER_OPTIONS) {
         dd.addOption(a, a);
       }
-      const initial = ACTOR_OPTIONS.includes(
-        this.actorValue as (typeof ACTOR_OPTIONS)[number]
+      const initial = WRITER_OPTIONS.includes(
+        this.writerValue as (typeof WRITER_OPTIONS)[number]
       )
-        ? this.actorValue
+        ? this.writerValue
         : "human";
       dd.setValue(initial);
-      this.actorValue = initial;
+      this.writerValue = initial;
       dd.onChange((v) => {
-        this.actorValue = v;
+        this.writerValue = v;
         this.refreshPreview();
       });
     });
@@ -371,21 +371,21 @@ class IcsSettingTab extends PluginSettingTab {
     containerEl.createEl("h3", { text: "Research commit template" });
 
     new Setting(containerEl)
-      .setName("Default actor")
+      .setName("Default writer")
       .setDesc("Prefills the commit modal: human, claude, cursor, or ics-bot.")
       .addDropdown((dd) => {
-        for (const a of ACTOR_OPTIONS) {
+        for (const a of WRITER_OPTIONS) {
           dd.addOption(a, a);
         }
         dd.setValue(
-          ACTOR_OPTIONS.includes(
-            this.plugin.settings.commitDefaultActor as (typeof ACTOR_OPTIONS)[number]
+          WRITER_OPTIONS.includes(
+            this.plugin.settings.commitDefaultWriter as (typeof WRITER_OPTIONS)[number]
           )
-            ? this.plugin.settings.commitDefaultActor
+            ? this.plugin.settings.commitDefaultWriter
             : "human"
         );
         dd.onChange(async (v) => {
-          this.plugin.settings.commitDefaultActor = v;
+          this.plugin.settings.commitDefaultWriter = v;
           await this.plugin.saveSettings();
         });
       });
@@ -417,7 +417,7 @@ class IcsSettingTab extends PluginSettingTab {
     new Setting(containerEl)
       .setName("Commit message pattern")
       .setDesc(
-        "Placeholders: {actor}, {paper_id}, {phase}, {summary}. Example: [{actor}][research][{paper_id}][{phase}] {summary}"
+        "Placeholders: {writer}, {paper_id}, {phase}, {summary}. Example: [{writer}][research][{paper_id}][{phase}] {summary}"
       )
       .addText((t) =>
         t

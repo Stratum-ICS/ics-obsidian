@@ -1,11 +1,11 @@
 export type CommitTemplateVars = {
-  actor: string;
+  writer: string;
   paper_id: string;
   phase: string;
   summary: string;
 };
 
-const DEFAULT_PATTERN = "[{actor}][research][{paper_id}][{phase}] {summary}";
+const DEFAULT_PATTERN = "[{writer}][research][{paper_id}][{phase}] {summary}";
 
 /** Replace `{key}` placeholders; unknown keys left unchanged. */
 export function applyCommitTemplate(

@@ -3,11 +3,11 @@ export interface IcsSettings {
   icsBinaryPath: string;
   /** When non-empty, passed as STRATUM_BASE_URL to the child process */
   stratumBaseUrl: string;
-  /** Default actor: human | claude | cursor | ics-bot */
-  commitDefaultActor: string;
+  /** Default writer: human | claude | cursor | ics-bot */
+  commitDefaultWriter: string;
   commitDefaultPaperId: string;
   commitDefaultPhase: string;
-  /** Pattern with {actor}, {paper_id}, {phase}, {summary} */
+  /** Pattern with {writer}, {paper_id}, {phase}, {summary} */
   commitMessagePattern: string;
   /**
    * Substring for **ICS: Log (filtered)** — lines containing this substring are kept.
@@ -19,9 +19,9 @@ export interface IcsSettings {
 export const DEFAULT_SETTINGS: IcsSettings = {
   icsBinaryPath: "ics",
   stratumBaseUrl: "",
-  commitDefaultActor: "human",
+  commitDefaultWriter: "human",
   commitDefaultPaperId: "",
   commitDefaultPhase: "inbox",
-  commitMessagePattern: "[{actor}][research][{paper_id}][{phase}] {summary}",
+  commitMessagePattern: "[{writer}][research][{paper_id}][{phase}] {summary}",
   logFilterPathSubstring: "",
 };
