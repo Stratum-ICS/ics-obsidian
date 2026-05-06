@@ -7,7 +7,7 @@ import {
 describe("applyCommitTemplate", () => {
   it("fills all slots", () => {
     const line = applyCommitTemplate(defaultCommitPattern(), {
-      actor: "human",
+      writer: "human",
       paper_id: "s41534-021-00368-4",
       phase: "eli5",
       summary: "§1 intro",
@@ -18,8 +18,8 @@ describe("applyCommitTemplate", () => {
   });
 
   it("preserves unknown placeholders", () => {
-    const line = applyCommitTemplate("[{actor}] {unknown}", {
-      actor: "claude",
+    const line = applyCommitTemplate("[{writer}] {unknown}", {
+      writer: "claude",
       paper_id: "p",
       phase: "gaps",
       summary: "x",
