@@ -35,7 +35,7 @@ Use `npm run dev` for a watch build (`esbuild` in watch mode).
 
 The plugin runs `ics log` with **no extra arguments** by default. **ICS: Log (filtered)** runs `ics log`, buffers the full output, then **shows only lines that contain** the substring you set under **Log filter substring** in settings (e.g. a `paper_id` or `Research/papers/...`).
 
-If your `ics` build adds path-scoped log flags, check `ics log --help` on your machine. The plugin does **not** yet forward arbitrary CLI args for log; extend it when the `ics` contract is stable.
+Maintainers: run `ics log --help` when `ics` is installed and record flags in **[`docs/ics-cli-log.md`](docs/ics-cli-log.md)**. The plugin does **not** yet forward extra argv to `ics log` until that contract is documented.
 
 ## Manual QA (P0)
 

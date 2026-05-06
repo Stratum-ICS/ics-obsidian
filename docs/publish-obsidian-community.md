@@ -7,7 +7,7 @@ Checklist aligned with [Submission requirements for plugins](https://docs.obsidi
 | Item | Status |
 |------|--------|
 | Public GitHub repo (plugin source, not only bundled drops) | **Manual:** open https://github.com/hahahuy/ics-obsidian → Settings → confirm **Public** (not Private). |
-| Open-source **`LICENSE`** at repo root (MIT / Apache-2.0 / GPL — pick org policy) | **Done:** `LICENSE` (MIT, © 2026 Stratum-ICS — matches `manifest.json` `author`). Change copyright if your legal owner differs. |
+| Open-source **`LICENSE`** at repo root (MIT / Apache-2.0 / GPL — pick org policy) | **Present:** `LICENSE` (MIT, © 2026 Stratum-ICS — matches `manifest.json` `author`). |
 | **`README.md`** — purpose, install, prerequisites (`ics` CLI), Flatpak note | Present |
 | **`manifest.json`** — valid `id`, `name`, `version`, `minAppVersion`, `description`, `author`, `isDesktopOnly` | Present (`isDesktopOnly: true` required for Node spawn) |
 | **`versions.json`** — maps each released plugin version to minimum app version | Present |
@@ -41,7 +41,7 @@ Obsidian’s release bot / community index expects the manifest **`version`** in
 
 ## Execute the plan (in order)
 
-1. **Blocker:** Add **`LICENSE`** at repo root (match org policy; MIT is common for Obsidian plugins).
+1. ~~**Blocker:** Add **`LICENSE`** at repo root~~ **Done** — `LICENSE` committed at repo root.
 2. **Remote:** Ensure GitHub repo is public; `git remote -v` points at the canonical URL you will list.
 3. **Version:** Choose release **`x.y.z`** (e.g. `0.1.0` for first listing or `1.0.0` if you want to signal “stable enough”). Set the same value in **`manifest.json`**, **`package.json`**, and a new key in **`versions.json`** for that version → `minAppVersion` (use the **lowest** Obsidian app build you actually tested on).
 4. **Build:** `npm install` (or `npm ci` in CI) then **`npm run build`**. Commit **`main.js`** if you ship the bundle in git (this repo does).

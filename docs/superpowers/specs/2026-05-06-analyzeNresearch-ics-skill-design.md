@@ -39,6 +39,18 @@ Research teams need a **repeatable reading path** (ELI5, segment-level notes, st
 | `ics-obsidian` | Obsidian plugin: `ics` spawn, **commit template UI**, **log filter UI**; optional future “scaffold” only if templates stay synced (see §7). |
 | Research vault (e.g. `~/Documents/obs-vault`) | Runtime notes: `hub.md`, `instruction.md`, inbox, paper subtree. |
 
+### 4.1 Agent execution & maintainers (`ics-agents`)
+
+- **Forked subagents (required):** Every child prompt under `agents/` runs as an **isolated / forked** subagent with a **minimal paste handoff**. Canonical contract:  
+  **https://github.com/Stratum-ICS/ics-agents/blob/master/agents/forked-subagents.md**
+- **Maintainer / QA loop:** When changing the skill or templates, run the **Recursive test loop** in:  
+  **https://github.com/Stratum-ICS/ics-agents/blob/master/skills/analyze-n-research/SKILL.md**  
+  on the internal vault fixture (bootstrap → ingest → ELI5 + gap stubs → **forked** newcomer validator).
+
+### 4.2 ICS CLI `log` discovery
+
+- Record whether `ics log` supports path/prefix args after running `ics log --help` on a machine with the CLI installed. Working notes: **`docs/ics-cli-log.md`** in this repo.
+
 ---
 
 ## 5. Vault layout and files
