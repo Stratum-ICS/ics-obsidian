@@ -1,8 +1,8 @@
 # Design: analyzeNresearch skill, ICS conventions, and ics-obsidian enhancements
 
 **Date:** 2026-05-06  
-**Status:** Draft for review  
-**Repos:** Canonical prompts/templates in [`ics-agents`](https://github.com/…/ics-agents) (local: `~/Documents/github/ics-agents`); Obsidian plugin in `ics-obsidian`.
+**Status:** Approved  
+**Repos:** Canonical prompts/templates in **https://github.com/Stratum-ICS/ics-agents** (local: `~/Documents/github/ics-agents`); Obsidian plugin in `ics-obsidian`.
 
 ---
 
