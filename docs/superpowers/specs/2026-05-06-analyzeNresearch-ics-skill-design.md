@@ -125,7 +125,9 @@ Subagents receive: vault root path, `paper_id`, paths to `hub.md` and `instructi
 ## 9. Testing
 
 - **Vault:** `/home/hahuy/Documents/obs-vault`.
-- **PDF:** `/home/hahuy/Documents/obs-vault/s41534-021-00368-4.pdf`.
+- **PDF:** `/home/hahuy/Documents/obs-vault/s41534-021-00368-4.pdf` (`pdf_rel_path` is vault-root-relative: `s41534-021-00368-4.pdf`).
+- **Ingest:** use `pdftoagent-mcp` `convert_pdf_quality` with `input_path` = absolute filesystem path. Marker may time out (SIGKILL); docling fallback is acceptable — document in team defaults.
+- **Maintainer loop:** bootstrap → `convert_pdf_quality` → ELI5 notes + gap stubs → newcomer-path-validator subagent → patch SKILL and templates until all rubric items pass. See `skills/analyze-n-research/SKILL.md` § *Recursive test loop* for the full procedure.
 - **Pass criteria:** (1) `hub.md` + `instruction.md` exist and link correctly; (2) newcomer subagent can follow hub alone and report lower friction than raw PDF; (3) sample commits match §6; (4) log filter / template behave under plugin (when implemented).
 
 ---
