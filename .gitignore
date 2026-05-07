@@ -5,3 +5,4 @@ main.js
 # Local agent / PDF tooling output (do not commit)
 .claude/
 .artifacts/
+docs/
